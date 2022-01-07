@@ -1,58 +1,13 @@
 /*
-control enabled unloader1 flushing 0 0 0
-control enabled unloader2 flushing 0 0 0
-control enabled unloader3 flushing 0 0 0
-sensor copper vault1 @copper
-sensor lead vault1 @lead
-sensor graphite vault1 @graphite
-sensor coal vault1 @coal
-sensor titanium vault1 @titanium
-sensor silicon vault1 @silicon
-op greaterThanEq copperFull copper 850
-op greaterThanEq graphiteFull graphite 850
-op greaterThanEq coalFull coal 850
-op greaterThanEq leadFull lead 850
-op greaterThanEq titaniumFull titanium 850
-op greaterThanEq siliconFull silicon 850
-jump 23 equal copperFull 1
-jump 38 equal graphiteFull 1
-jump 33 equal coalFull 1
-jump 28 equal leadFull 1
-jump 43 equal titaniumFull 1
-jump 48 equal siliconFull 1
-set flushing 0
-end
-control configure unloader1 @copper 0 0 0
-control configure unloader2 @copper 0 0 0
-control configure unloader3 @copper 0 0 0
-set flushing 1
-end
-control configure unloader1 @lead 0 0 0
-control configure unloader2 @lead 0 0 0
-control configure unloader3 @lead 0 0 0
-set flushing 1
-end
-control configure unloader1 @coal 0 0 0
-control configure unloader2 @coal 0 0 0
-control configure unloader3 @coal 0 0 0
-set flushing 1
-end
-control configure unloader1 @graphite 0 0 0
-control configure unloader2 @graphite 0 0 0
-control configure unloader3 @graphite 0 0 0
-set flushing 1
-end
-control configure unloader1 @titanium 0 0 0
-control configure unloader2 @titanium 0 0 0
-control configure unloader3 @titanium 0 0 0
-set flushing 1
-end
-control configure unloader1 @silicon 0 0 0
-control configure unloader2 @silicon 0 0 0
-control configure unloader3 @silicon 0 0 0
-set flushing 1
-end
-*/
+This script was built for use with my "6.0 - Modular Storage With Overflow" schematic, available at https://steamcommunity.com/sharedfiles/filedetails/?id=2710693160
+You may want to add new methods in the Printer class, but right now it can handle Control, Set, Operator, Sensor, and Jump commands.
+It has built-in line tracking, so you can dynamically assign jump destinations without much hassle.
+Use Printer.debug instead of Printer.print to include the line numbers, for help debugging.
+You should be able to copy/paste the whole output directly into Mindustry, minus the exit code, and have it work.
+I made this for fun, in one night, so feel free to give advice or make requests, but I'm not promising any support.
+I suggest running it in Intellij IDEA, with the Groovy 4.0 library.
+You may use any or all of this code, with or without attribution, for any purpose.
+ */
 
 static void main(String[] args) {
     List resources = [
@@ -152,6 +107,11 @@ class Printer {
     String print(String line) {
         this.lineNumber ++
         println line
+        return
+    }
+    String debug(String line) {
+        this.lineNumber ++
+        println "${this.lineNumber} ${line}"
         return
     }
 
